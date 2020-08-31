@@ -1,0 +1,2 @@
+# kaggle_global_wheat_detection_78th_place_solution
+Based on efficientdet-pytorch
