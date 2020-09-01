@@ -143,11 +143,15 @@ class DatasetRetriever(Dataset):
     #     mixup_boxes = np.concatenate((boxes,r_boxes),0)
     #     return mixup_image,mixup_boxes
 
+    #def load_mixup_image_and_boxes(self, index):
+    #    image, boxes = self.load_image_and_boxes(index)
+    #    r_image, r_boxes = self.load_image_and_boxes(random.randint(0, self.image_ids.shape[0] - 1))
+    #    return (image + r_image) / 2, np.vstack((boxes, r_boxes)).astype(np.int32)
     def load_mixup_image_and_boxes(self, index):
         image, boxes = self.load_image_and_boxes(index)
         r_image, r_boxes = self.load_image_and_boxes(random.randint(0, self.image_ids.shape[0] - 1))
-        return (image + r_image) / 2, np.vstack((boxes, r_boxes)).astype(np.int32)
-
+        return cv2.addWeighted(image, 0.5, r_image, 0.5)
+    
     def load_cutmix_image_and_boxes(self, index, imsize=1024):
         """
         This implementation of cutmix author:  https://www.kaggle.com/nvnnghia
